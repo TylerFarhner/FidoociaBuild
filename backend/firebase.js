@@ -1,8 +1,8 @@
-import * as firebase from 'firebase';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/database';
+import * as firebase from 'firebase'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'firebase/storage'
+import 'firebase/database'
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBd-PnyS7vvBX1eP5pdRh7aObdYUBycrOw',
@@ -11,7 +11,7 @@ var firebaseConfig = {
   projectId: 'fidoocia-e9f07',
   storageBucket: 'fidoocia-e9f07.appspot.com',
   messagingSenderId: '478797659819',
-  appId: '1:478797659819:web:89aaf536efd167967641ee'
+  appId: '1:478797659819:web:89aaf536efd167967641ee',
 }
 
 // Initialize Firebase
