@@ -1,0 +1,68 @@
+{
+  "dates" : {
+    "-MeYc1VibqOYQJu6QR8m" : {
+        "age" : 23,
+        "dob" : "Fri Aug 21 1998",
+        "location" : {
+          "comment" : "All Purpose Riverfront",
+          "id" : 2,
+          "lat" : 38.8712523,
+          "location" : "79 Potomac Avenue SE, Washington, DC 20003",
+          "long" : -77.0064144
+        },
+        "myLinks" : [ {
+          "name" : "John Appleseed",
+          "phoneNumber" : "8885555512",
+          "uid" : "410FE041-5C4E-48DA-B4DE-04C15EA3DBAC"
+        } ],
+        "name" : "Amanda",
+        "otherMeeting" : "Other option was not selected.",
+        "phoneNumber" : "",
+        "profileURL" : "",
+        "scheduledDate" : "2021-07-21",
+        "selected" : "Bumble",
+        "startTime" : "2:00AM",
+        "verificationImages" : {
+          "-Med4CDjQpyfhg1vJgIy" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=12bd9545-7a61-4aad-ab3f-8b66f84e308b",
+          "-Med4EnGqzdKfjaM4RBd" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=5bb933bb-e7e0-4085-956c-32ed943c4589",
+          "-Med4FWH7lXKjHhox3eS" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=8a532e93-62e7-476b-ba6b-ebd24270bf42",
+          "-Med4GCQej_Jkmkvlf6P" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=5c263f69-9022-4bb4-b207-06d27d567386",
+          "-Med4HWtXqsF4-JOpRk8" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=a6c3844b-2f74-4d69-9c79-eb821793049e",
+          "-Med4JAMmByJGNi1tvoR" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=e3ea6ac0-8dff-4564-97a4-42f3c594626a"
+        }
+    },
+    "-Med43O1EhKQfSwCnBa1" : {
+      "age" : 23,
+      "dob" : "Fri Aug 21 1998",
+      "location" : {
+        "comment" : "All Purpose Riverfront",
+        "id" : 2,
+        "lat" : 38.8712523,
+        "location" : "79 Potomac Avenue SE, Washington, DC 20003",
+        "long" : -77.0064144
+      },
+      "myLinks" : [ {
+        "name" : "John Appleseed",
+        "phoneNumber" : "8885555512",
+        "uid" : "410FE041-5C4E-48DA-B4DE-04C15EA3DBAC"
+      } ],
+      "name" : "Samantha",
+      "otherMeeting" : "Other option was not selected.",
+      "phoneNumber" : "",
+      "profileURL" : "",
+      "scheduledDate" : "2021-07-21",
+      "selected" : "Bumble",
+      "startTime" : "4:00AM",
+      "verificationImages" : {
+        "-Med4CDjQpyfhg1vJgIy" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=12bd9545-7a61-4aad-ab3f-8b66f84e308b",
+        "-Med4EnGqzdKfjaM4RBd" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=5bb933bb-e7e0-4085-956c-32ed943c4589",
+        "-Med4FWH7lXKjHhox3eS" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=8a532e93-62e7-476b-ba6b-ebd24270bf42",
+        "-Med4GCQej_Jkmkvlf6P" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=5c263f69-9022-4bb4-b207-06d27d567386",
+        "-Med4HWtXqsF4-JOpRk8" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=a6c3844b-2f74-4d69-9c79-eb821793049e",
+        "-Med4JAMmByJGNi1tvoR" : "https://firebasestorage.googleapis.com/v0/b/fidoocia-e9f07.appspot.com/o/user-images%2FIpPytlL57fdqAhocpAFgcVK5kyA2?alt=media&token=e3ea6ac0-8dff-4564-97a4-42f3c594626a"
+      }
+    }
+  },
+  "profileImg" : "",
+  "pushToken" : ""
+}
