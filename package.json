@@ -2,7 +2,7 @@
   "scripts": {
     "start": "react-native start --reset-cache",
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "expo start ios",
     "web": "expo start --web",
     "eject": "expo eject"
   },
@@ -11,7 +11,7 @@
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/datetimepicker": "3.5.2",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-firebase/app": "12.2.0",
+    "@react-native-firebase/app": "^12.2.0",
     "@react-native-firebase/storage": "^12.2.0",
     "@react-native-masked-view/masked-view": "0.2.4",
     "@react-navigation/bottom-tabs": "^5.11.11",
