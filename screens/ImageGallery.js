@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Text,
   View,
@@ -7,58 +7,58 @@ import {
   Button,
   FlatList,
   SafeAreaView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { auth, img, rt } from "../backend/firebase";
-import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
-import SelectableImage from "../components/SelectableImage";
+} from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import { auth, img, rt } from '../utils/firebase'
+import * as ImagePicker from 'expo-image-picker'
+import * as MediaLibrary from 'expo-media-library'
+import SelectableImage from '../components/SelectableImage'
 
 function ImageGallery({ route, navigation }) {
-  const [images, setImages] = useState([]);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [images, setImages] = useState([])
+  const [selectedImages, setSelectedImages] = useState([])
 
   useEffect(() => {
     ImagePicker.requestMediaLibraryPermissionsAsync().then(({ status }) => {
       // this will request acccess to the user's gallery
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!')
       } else {
         MediaLibrary.getAssetsAsync({ first: 9999 }).then(
           (
             { assets } // display the first 20 photos from the phone's image library
           ) => setImages(assets.map(({ uri }) => ({ uri, selected: false })))
-        );
+        )
       }
-    });
-  }, []);
+    })
+  }, [])
 
   const uploadToFB = () => {
     const imagesRef = rt.ref(
       `users/${auth.currentUser.uid}/dates/${route.params.dateKey}/verificationImages`
-    );
+    )
     selectedImages.forEach((uri) =>
       fetch(uri).then((res) =>
         res.blob().then((blob) => {
-          const directoryRef = img.child(auth.currentUser.uid);
-          const fileRef = directoryRef.child((Math.random() * 10).toFixed(15));
+          const directoryRef = img.child(auth.currentUser.uid)
+          const fileRef = directoryRef.child((Math.random() * 10).toFixed(15))
           fileRef.put(blob).then(() =>
             // upload the image blob
             fileRef.getDownloadURL().then(
               (url) => imagesRef.push(url)
               // get the image's URL from Firebase once uploaded
             )
-          );
+          )
         })
       )
-    );
-    navigation.navigate("Home");
-    alert("Date created");
-  };
+    )
+    navigation.navigate('Home')
+    alert('Date created')
+  }
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ alignSelf: "flex-start" }}>
+      <SafeAreaView style={{ alignSelf: 'flex-start' }}>
         <Ionicons
           onPress={() => navigation.goBack()}
           name="chevron-back-outline"
@@ -88,34 +88,34 @@ function ImageGallery({ route, navigation }) {
           />
         )}
         style={{ flex: 1 }}
-        contentContainerStyle={{ alignItems: "center" }}
+        contentContainerStyle={{ alignItems: 'center' }}
         keyExtractor={(item, index) => index}
       />
     </View>
-  );
+  )
 }
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: height / 10,
-    backgroundColor: "#ecf0f1",
+    backgroundColor: '#ecf0f1',
   },
   galleryIcon: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   selectedNumber: {
     fontSize: 16,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginVertical: 15,
   },
   paragraph: {
     marginVertical: 16,
     marginHorizontal: 28,
     fontSize: 16,
-    textAlign: "left",
+    textAlign: 'left',
   },
-});
+})
 
-export default ImageGallery;
+export default ImageGallery
