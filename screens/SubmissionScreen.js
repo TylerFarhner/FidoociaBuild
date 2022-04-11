@@ -10,24 +10,22 @@ import {
   SafeAreaView,
   Image,
   Platform,
-} from "react-native";
-import { auth, db, fire, img } from "../utils/firebase";
-import * as ImagePicker from "expo-image-picker";
-import Button from "../components/Button";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-
+} from 'react-native'
+import { auth, db, fire, img } from '../utils/firebase'
+import * as ImagePicker from 'expo-image-picker'
+import Button from '../components/Button'
+import DropDownPicker from 'react-native-dropdown-picker'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 function SubmissionScreen({ route, navigation }) {
-
-  const [name, setName] = useState(''); // firstname 
-  const [age, setAge] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [other, setOther] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [myLinks, setMyLinks] = useState([]);
-  const [location, setLocation] = useState('');
+  const [name, setName] = useState('') // firstname
+  const [age, setAge] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [other, setOther] = useState('')
+  const [profileImage, setProfileImage] = useState('')
+  const [myLinks, setMyLinks] = useState([])
+  const [location, setLocation] = useState('')
   const [validFirstName, setValidFirstName] = useState(true)
   const [validLastName, setValidLastName] = useState(true)
   const [validPhone, setValidPhone] = useState(true)
@@ -36,7 +34,7 @@ function SubmissionScreen({ route, navigation }) {
   const [validLinks, setValidLinks] = useState(true)
   const [validAge, setValidAge] = useState(true)
   const [flag, setFlag] = useState(false)
-  const { scheduledDate, startTime, loc } = route.params;
+  const { scheduledDate, startTime, loc } = route.params
 
   /* For Dropdown */
   const [open, setOpen] = useState(false)
@@ -48,7 +46,7 @@ function SubmissionScreen({ route, navigation }) {
     { label: 'CoffeeMeetsBagel', value: 'CoffeeMeetsBagel' },
     { label: 'OkCupid', value: 'OkCupid' },
     { label: 'Tinder', value: 'Tinder' },
-    { label: 'Other', value: 'Other' }
+    { label: 'Other', value: 'Other' },
   ])
 
   /* For DatePicker */
@@ -66,33 +64,48 @@ function SubmissionScreen({ route, navigation }) {
   useEffect(() => {
     // when something changes
     if (name || lastName || phoneNumber) {
-      console.log('FIELDS UPDATE', validFirstName, validLastName, validPhone, validMeet, validLoc, validLinks, validAge)
-      handleFirestore();
+      console.log(
+        'FIELDS UPDATE',
+        validFirstName,
+        validLastName,
+        validPhone,
+        validMeet,
+        validLoc,
+        validLinks,
+        validAge
+      )
+      handleFirestore()
     }
-  }, [validFirstName, validLastName, validPhone, validMeet, validLoc, validLinks, validAge])
-
+  }, [
+    validFirstName,
+    validLastName,
+    validPhone,
+    validMeet,
+    validLoc,
+    validLinks,
+    validAge,
+  ])
 
   const updateLinks = (data) => {
-    setMyLinks(data);
-  };
+    setMyLinks(data)
+  }
 
   const updateLocation = (data) => {
-    setLocation(data);
-  };
+    setLocation(data)
+  }
 
   const toDate = (dateStr) => {
-    var parts = dateStr.split("-")
+    var parts = dateStr.split('-')
     return new Date(parts[2], parts[1] - 1, parts[0])
   }
 
   const validateFields = () => {
-
-    setValidFirstName(true);
-    setValidLastName(true);
-    setValidPhone(true);
-    setValidMeet(true);
-    setValidLinks(true);
-    setValidAge(true);
+    setValidFirstName(true)
+    setValidLastName(true)
+    setValidPhone(true)
+    setValidMeet(true)
+    setValidLinks(true)
+    setValidAge(true)
 
     if (name == '' || name.length < 2) {
       setValidFirstName(false)
@@ -116,23 +129,31 @@ function SubmissionScreen({ route, navigation }) {
     if (age == '' || age < 18) {
       setValidAge(false)
     }
-    console.log(validFirstName, validLastName, validPhone, validMeet, validLinks, validAge);
+    console.log(
+      validFirstName,
+      validLastName,
+      validPhone,
+      validMeet,
+      validLinks,
+      validAge
+    )
     console.log('Results', name, lastName, myLinks)
     console.log('validateFields done')
   }
 
   const convertStringToDate = (dateString) => {
-    var formattedDate = new Date(dateString);
-    var offsetFix = new Date(formattedDate.getTime() - formattedDate.getTimezoneOffset() * -60000); // This will fix the -1 offset 
-    return offsetFix.toDateString();
-  };
+    var formattedDate = new Date(dateString)
+    var offsetFix = new Date(
+      formattedDate.getTime() - formattedDate.getTimezoneOffset() * -60000
+    ) // This will fix the -1 offset
+    return offsetFix.toDateString()
+  }
 
   useEffect(() => {
-    if (loc == null || loc == "") {
+    if (loc == null || loc == '') {
       console.log('No location has been selected')
-    }
-    else {
-      setLocation(loc);
+    } else {
+      setLocation(loc)
       console.log('Location selected', location)
     }
   }, [loc])
@@ -146,7 +167,7 @@ function SubmissionScreen({ route, navigation }) {
 
   /*Phone Input Formatter*/
 
-  const handlePhoneInput = phoneNumber => {
+  const handlePhoneInput = (phoneNumber) => {
     // this is where we'll call our future formatPhoneNumber function that we haven't written yet.
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber)
     // we'll set the input value using our setInputValue
@@ -176,7 +197,10 @@ function SubmissionScreen({ route, navigation }) {
 
     // finally, if the phoneNumberLength is greater then seven, we add the last
     // bit of formatting and return it.
-    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 10)}`
   }
 
   const [image, setImage] = useState(null)
@@ -184,7 +208,8 @@ function SubmissionScreen({ route, navigation }) {
   useEffect(() => {
     ImagePicker.requestMediaLibraryPermissionsAsync().then(
       ({ status }) =>
-        status !== 'granted' && alert('Sorry, we need camera roll permissions to make this work!')
+        status !== 'granted' &&
+        alert('Sorry, we need camera roll permissions to make this work!')
     )
   }, [])
 
@@ -194,7 +219,7 @@ function SubmissionScreen({ route, navigation }) {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 0,
-      base64: true
+      base64: true,
     })
 
     if (!result.cancelled) {
@@ -202,7 +227,7 @@ function SubmissionScreen({ route, navigation }) {
     }
   }
 
-  const getAge = dateString => {
+  const getAge = (dateString) => {
     var today = new Date()
     var birthDate = new Date(dateString)
     var age = today.getFullYear() - birthDate.getFullYear()
@@ -214,19 +239,34 @@ function SubmissionScreen({ route, navigation }) {
   }
 
   const handleFirestore = () => {
-    validateFields();
-    console.log('AFTER VALIDATE ', validFirstName, validLastName, validPhone, validMeet, validLoc, validLinks, validAge);
+    validateFields()
+    console.log(
+      'AFTER VALIDATE ',
+      validFirstName,
+      validLastName,
+      validPhone,
+      validMeet,
+      validLoc,
+      validLinks,
+      validAge
+    )
 
     if (flag) {
       if (image == null) {
         alert('Please select a profile image for your date.')
-      } else if (!validFirstName || !validLastName || !validPhone || !validMeet || !validLinks || !validAge) {
+      } else if (
+        !validFirstName ||
+        !validLastName ||
+        !validPhone ||
+        !validMeet ||
+        !validLinks ||
+        !validAge
+      ) {
         alert('Please make sure all the fields are filled out properly.')
-      }
-      else {
+      } else {
         console.log('ELSE')
-        fetch(`data:image/jpeg;base64,${image.base64}`).then(res =>
-          res.blob().then(blob => {
+        fetch(`data:image/jpeg;base64,${image.base64}`).then((res) =>
+          res.blob().then((blob) => {
             // convert it to a blob
             console.log('FETCH')
             const directoryRef = img.child(auth.currentUser.uid) // create a ref in Firebase storage with the current user's id
@@ -234,7 +274,7 @@ function SubmissionScreen({ route, navigation }) {
             const fileRef = directoryRef.child((Math.random() * 10).toFixed(15))
             fileRef.put(blob).then(() =>
               // get the image's URL from Firebase once uploaded
-              fileRef.getDownloadURL().then(url => {
+              fileRef.getDownloadURL().then((url) => {
                 //let datesRef = db.collection('users').doc(auth.currentUser.uid);
 
                 let newDateProfile = {
@@ -250,7 +290,7 @@ function SubmissionScreen({ route, navigation }) {
                   activeLocation: null,
                   platform: value,
                   location,
-                  otherMeeting: other
+                  otherMeeting: other,
                 }
 
                 // datesRef.get().then((doc) => {
@@ -264,24 +304,25 @@ function SubmissionScreen({ route, navigation }) {
                   .collection('dates')
                   .doc(`${newDateProfile.name} ${newDateProfile.lastName}`)
                   .set({
-                    dateProfile: newDateProfile
-                  });
+                    dateProfile: newDateProfile,
+                  })
 
                 db.collection('users')
                   .doc(auth.currentUser.uid)
                   .collection('verification')
                   .doc(`${newDateProfile.name} ${newDateProfile.lastName}`)
                   .set({
-                    verified: false
-                  });
-                navigation.navigate('Gallery', { dateKey: convertStringToDate(scheduledDate) })
+                    verified: false,
+                  })
+                navigation.navigate('Gallery', {
+                  dateKey: convertStringToDate(scheduledDate),
+                })
               })
             )
           })
         )
       }
-    }
-    else {
+    } else {
       console.log('First time visiting this screen.')
     }
   }
@@ -290,8 +331,17 @@ function SubmissionScreen({ route, navigation }) {
     console.log('SAVE')
     // new Promise (())
     // fetch the base64 image data
-    handleFirestore();
-    console.log('END OF SAVE', validFirstName, validLastName, validPhone, validMeet, validLoc, validLinks, validAge);
+    handleFirestore()
+    console.log(
+      'END OF SAVE',
+      validFirstName,
+      validLastName,
+      validPhone,
+      validMeet,
+      validLoc,
+      validLinks,
+      validAge
+    )
   }
 
   return (
@@ -300,13 +350,13 @@ function SubmissionScreen({ route, navigation }) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       }}
     >
       <SafeAreaView style={{ alignSelf: 'flex-start' }}>
         <Ionicons
           onPress={() => navigation.goBack()}
-          name='chevron-back-outline'
+          name="chevron-back-outline"
           size={width / 12}
           style={{ paddingLeft: 12 }}
         />
@@ -315,7 +365,9 @@ function SubmissionScreen({ route, navigation }) {
         <Text style={{ fontSize: 24, textAlign: 'center' }}>New event on</Text>
         <Text style={styles.textContainer}>
           <Text>{convertStringToDate(scheduledDate)}</Text>{' '}
-          <Text style={{ color: '#666', fontWeight: '400', fontSize: 20 }}>at</Text>{' '}
+          <Text style={{ color: '#666', fontWeight: '400', fontSize: 20 }}>
+            at
+          </Text>{' '}
           <Text>{startTime}</Text>
         </Text>
         <TouchableOpacity onPress={pickImage}>
@@ -324,7 +376,7 @@ function SubmissionScreen({ route, navigation }) {
               marginTop: 25,
               flex: 1,
               alignSelf: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             {image ? (
@@ -333,18 +385,18 @@ function SubmissionScreen({ route, navigation }) {
                 style={{
                   width: width / 2.5,
                   height: width / 2.5,
-                  borderRadius: width / 4
+                  borderRadius: width / 4,
                 }}
               />
             ) : (
               <Image
                 source={{
-                  uri: 'https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg'
+                  uri: 'https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg',
                 }}
                 style={{
                   width: width / 2.5,
                   height: width / 2.5,
-                  borderRadius: width / 4
+                  borderRadius: width / 4,
                 }}
               />
             )}
@@ -354,18 +406,18 @@ function SubmissionScreen({ route, navigation }) {
         <Text
           style={{
             marginLeft: width / 3.5,
-            marginBottom: height / 50
+            marginBottom: height / 50,
           }}
         ></Text>
         <Text style={{ marginBottom: 10 }}>First Name</Text>
         <TextInput
           value={name}
-          placeholder='John'
+          placeholder="John"
           placeholderTextColor={'slategray'}
-          autoCapitalize='words'
+          autoCapitalize="words"
           autoCorrect={false}
-          returnKeyType='next'
-          onChangeText={name => setName(name)}
+          returnKeyType="next"
+          onChangeText={(name) => setName(name)}
           style={{
             marginBottom: height / 50,
             borderColor: 'slategray',
@@ -377,19 +429,21 @@ function SubmissionScreen({ route, navigation }) {
             paddingVertical: width / 25,
             paddingLeft: width / 50,
             width: width - 3 * (width / 20),
-            borderRadius: width / 75
+            borderRadius: width / 75,
           }}
         />
-        {validFirstName ? null : <Text style={styles.errorMsg}>Please enter a first name.</Text>}
+        {validFirstName ? null : (
+          <Text style={styles.errorMsg}>Please enter a first name.</Text>
+        )}
         <Text style={{ marginBottom: 10 }}>Last Name</Text>
         <TextInput
           value={lastName}
-          placeholder='Doe'
+          placeholder="Doe"
           placeholderTextColor={'slategray'}
-          autoCapitalize='words'
+          autoCapitalize="words"
           autoCorrect={false}
-          returnKeyType='next'
-          onChangeText={lastName => setLastName(lastName)}
+          returnKeyType="next"
+          onChangeText={(lastName) => setLastName(lastName)}
           style={{
             marginBottom: height / 50,
             borderColor: 'slategray',
@@ -401,13 +455,15 @@ function SubmissionScreen({ route, navigation }) {
             paddingVertical: width / 25,
             paddingLeft: width / 50,
             width: width - 3 * (width / 20),
-            borderRadius: width / 75
+            borderRadius: width / 75,
           }}
         />
-        {validLastName ? null : <Text style={styles.errorMsg}>Please enter a last name.</Text>}
+        {validLastName ? null : (
+          <Text style={styles.errorMsg}>Please enter a last name.</Text>
+        )}
         <Text style={styles.formLabel}>Age</Text>
         <TextInput
-          placeholder='18'
+          placeholder="18"
           placeholderTextColor={'slategray'}
           style={{
             marginBottom: height / 50,
@@ -420,25 +476,27 @@ function SubmissionScreen({ route, navigation }) {
             paddingVertical: width / 25,
             paddingLeft: width / 50,
             width: width - 3 * (width / 20),
-            borderRadius: width / 75
+            borderRadius: width / 75,
           }}
-          keyboardType='phone-pad'
+          keyboardType="phone-pad"
           onChangeText={(text) => setAge(text)}
           value={age}
         />
-        {validAge ? null : <Text style={styles.errorMsg}>Please enter a valid age.</Text>}
+        {validAge ? null : (
+          <Text style={styles.errorMsg}>Please enter a valid age.</Text>
+        )}
         <Text style={styles.formLabel}>Phone Number</Text>
         <TextInput
           value={phoneNumber}
           maxLength={14}
-          placeholder='(123) 123 4567'
+          placeholder="(123) 123 4567"
           placeholderTextColor={'slategray'}
-          autoCapitalize='words'
-          keyboardType='phone-pad'
-          autoCompleteType='tel'
+          autoCapitalize="words"
+          keyboardType="phone-pad"
+          autoCompleteType="tel"
           autoCorrect={false}
-          returnKeyType='next'
-          onChangeText={phoneNumber => handlePhoneInput(phoneNumber)}
+          returnKeyType="next"
+          onChangeText={(phoneNumber) => handlePhoneInput(phoneNumber)}
           style={{
             marginBottom: height / 50,
             borderColor: 'slategray',
@@ -450,10 +508,14 @@ function SubmissionScreen({ route, navigation }) {
             paddingVertical: width / 25,
             paddingLeft: width / 50,
             width: width - 3 * (width / 20),
-            borderRadius: width / 75
+            borderRadius: width / 75,
           }}
         />
-        {validPhone ? null : <Text style={styles.errorMsg}>Please enter a valid phone number.</Text>}
+        {validPhone ? null : (
+          <Text style={styles.errorMsg}>
+            Please enter a valid phone number.
+          </Text>
+        )}
         <Text style={styles.formLabel}>How did you meet?</Text>
         <DropDownPicker
           open={open}
@@ -464,7 +526,7 @@ function SubmissionScreen({ route, navigation }) {
           setItems={setItems}
           setOpen={setOpen}
           loading={loading}
-          dropDownDirection='BOTTOM'
+          dropDownDirection="BOTTOM"
           style={{
             flexGrow: 1,
             marginBottom: height / 50,
@@ -477,21 +539,25 @@ function SubmissionScreen({ route, navigation }) {
             paddingVertical: width / 25,
             paddingLeft: width / 50,
             width: width - 3 * (width / 20),
-            borderRadius: width / 75
+            borderRadius: width / 75,
           }}
         />
-        {validMeet ? null : <Text style={styles.errorMsg}>Please select an option.</Text>}
+        {validMeet ? null : (
+          <Text style={styles.errorMsg}>Please select an option.</Text>
+        )}
         {value == 'Other' ? (
           <View>
-            <Text style={{ marginBottom: 10 }}>Please tell us where you met</Text>
+            <Text style={{ marginBottom: 10 }}>
+              Please tell us where you met
+            </Text>
             <TextInput
               value={other}
-              placeholder='ex. Instagram'
+              placeholder="ex. Instagram"
               placeholderTextColor={'slategray'}
-              autoCapitalize='words'
+              autoCapitalize="words"
               autoCorrect={false}
-              returnKeyType='next'
-              onChangeText={other => setOther(other)}
+              returnKeyType="next"
+              onChangeText={(other) => setOther(other)}
               style={{
                 marginBottom: height / 50,
                 borderColor: 'slategray',
@@ -503,7 +569,7 @@ function SubmissionScreen({ route, navigation }) {
                 paddingVertical: width / 25,
                 paddingLeft: width / 50,
                 width: width - 3 * (width / 20),
-                borderRadius: width / 75
+                borderRadius: width / 75,
               }}
             />
           </View>
@@ -514,12 +580,12 @@ function SubmissionScreen({ route, navigation }) {
         {Object.keys(location).length === 0 ? (
           <TextInput
             value={''}
-            placeholder='Select location'
+            placeholder="Select location"
             placeholderTextColor={'slategray'}
-            autoCapitalize='words'
+            autoCapitalize="words"
             autoCorrect={false}
-            returnKeyType='next'
-            onChangeText={name => setName(name)}
+            returnKeyType="next"
+            onChangeText={(name) => setName(name)}
             onFocus={() => navigation.navigate('Location', { updateLocation })}
             style={styles.formInput}
           />
@@ -528,10 +594,10 @@ function SubmissionScreen({ route, navigation }) {
             value={''}
             placeholder={`${location.name}`}
             placeholderTextColor={'black'}
-            autoCapitalize='words'
+            autoCapitalize="words"
             autoCorrect={false}
-            returnKeyType='next'
-            onChangeText={name => setName(name)}
+            returnKeyType="next"
+            onChangeText={(name) => setName(name)}
             onFocus={() => navigation.navigate('Location', { updateLocation })}
             style={styles.formInput}
           />
@@ -560,8 +626,10 @@ function SubmissionScreen({ route, navigation }) {
             style={styles.formInput}
           />
         )}
-        {validLinks ? null : <Text style={styles.errorMsg}>Please select your links.</Text>}
-        <Button onPress={saveInfo} label='Submit' />
+        {validLinks ? null : (
+          <Text style={styles.errorMsg}>Please select your links.</Text>
+        )}
+        <Button onPress={saveInfo} label="Submit" />
       </ScrollView>
     </View>
   )
@@ -573,12 +641,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   errorMsg: {
-    color: "red",
+    color: 'red',
     marginTop: -10,
-    marginBottom: 15
+    marginBottom: 15,
   },
   textContainer: {
     fontSize: 19,
@@ -593,7 +661,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 10,
     letterSpacing: 0.65,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   formInput: {
     marginBottom: height / 50,
@@ -606,15 +674,15 @@ const styles = StyleSheet.create({
     paddingVertical: width / 25,
     paddingLeft: width / 50,
     width: width - 3 * (width / 20),
-    borderRadius: width / 75
+    borderRadius: width / 75,
   },
   formLabel: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   map: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
-  }
+    height: Dimensions.get('window').height,
+  },
 })
 
 export default SubmissionScreen
