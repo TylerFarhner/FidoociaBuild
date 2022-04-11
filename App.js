@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
-import { ActivityIndicator, View, StatusBar } from "react-native";
-import { Link, NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as Notifications from "expo-notifications";
-import { Ionicons } from "@expo/vector-icons";
-import * as Location from "expo-location";
-import { Constants } from "react-native-unimodules";
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { ActivityIndicator, View, StatusBar } from 'react-native'
+import { Link, NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
+import * as Notifications from 'expo-notifications'
+import { Ionicons } from '@expo/vector-icons'
+import * as Location from 'expo-location'
+import { Constants } from 'react-native-unimodules'
 
-import * as Screens from "./screens";
-import { fire, auth, db } from "./backend/firebase.js";
-import { toHHMMSS, timeFromNow } from "./utils/helpers";
+import * as Screens from './screens'
+import { fire, auth, db } from './utils/firebase'
+import { toHHMMSS, timeFromNow } from './utils/helpers'
 // import * as Notifier from './utils/notifer.js';
-import * as Verifier from "./utils/verifier";
+import * as Verifier from './utils/verifier'
 
 export default function App() {
-  const [isLoggedIn, setLoggedIn] = useState(null);
-  const [currentUser, setUser] = useState(null);
-  const [activeDate, setActiveDate] = useState(null);
-  const [dates, setDates] = useState(null);
-  const [verifications, setVerifications] = useState(null);
-  const [location, setLocation] = useState(null);
-  const state = { currentUser, location, verifications, dates, activeDate };
-  const setters = { setActiveDate };
-  const Tab = createBottomTabNavigator();
-  const [Home, Map, Login, Root] = [0, 0, 0, 0].fill(createStackNavigator());
+  const [isLoggedIn, setLoggedIn] = useState(null)
+  const [currentUser, setUser] = useState(null)
+  const [activeDate, setActiveDate] = useState(null)
+  const [dates, setDates] = useState(null)
+  const [verifications, setVerifications] = useState(null)
+  const [location, setLocation] = useState(null)
+  const state = { currentUser, location, verifications, dates, activeDate }
+  const setters = { setActiveDate }
+  const Tab = createBottomTabNavigator()
+  const [Home, Map, Login, Root] = [0, 0, 0, 0].fill(createStackNavigator())
   const Stack = ({ component, screens, initialRouteName }) => {
     return (
       <component.Navigator
@@ -48,91 +48,91 @@ export default function App() {
           </component.Screen>
         ))}
       </component.Navigator>
-    );
-  };
+    )
+  }
   const HomeScreens = [
-    { name: "Home", component: Screens.HomeScreen },
-    { name: "Date", component: Screens.DateProfileScreen },
-    { name: "Submission", component: Screens.SubmissionScreen },
-    { name: "Gallery", component: Screens.ImageGallery },
-    { name: "Status", component: Screens.StatusScreen },
-    { name: "Settings", component: Screens.SettingsScreen },
-    { name: "Edit", component: Screens.EditScreen },
-    { name: "Location", component: Screens.LocationSelectionScreen },
-    { name: "Contacts", component: Screens.PhoneBook },
-    { name: "Haven", component: Screens.HavenSelectionScreen },
-    { name: "CheckOutScreen", component: Screens.CheckOutScreen },
-  ];
+    { name: 'Home', component: Screens.HomeScreen },
+    { name: 'Date', component: Screens.DateProfileScreen },
+    { name: 'Submission', component: Screens.SubmissionScreen },
+    { name: 'Gallery', component: Screens.ImageGallery },
+    { name: 'Status', component: Screens.StatusScreen },
+    { name: 'Settings', component: Screens.SettingsScreen },
+    { name: 'Edit', component: Screens.EditScreen },
+    { name: 'Location', component: Screens.LocationSelectionScreen },
+    { name: 'Contacts', component: Screens.PhoneBook },
+    { name: 'Haven', component: Screens.HavenSelectionScreen },
+    { name: 'CheckOutScreen', component: Screens.CheckOutScreen },
+  ]
   const MapScreens = [
-    { name: "Locations", component: Screens.LocationsScreen },
-    { name: "Friend", component: Screens.FriendScreen },
-  ];
+    { name: 'Locations', component: Screens.LocationsScreen },
+    { name: 'Friend', component: Screens.FriendScreen },
+  ]
   const AuthScreens = [
-    { name: "Login", component: Screens.LoginScreen },
-    { name: "Register", component: Screens.RegisterScreen },
-    { name: "ResetPassword", component: Screens.ResetPasswordScreen },
-  ];
+    { name: 'Login', component: Screens.LoginScreen },
+    { name: 'Register', component: Screens.RegisterScreen },
+    { name: 'ResetPassword', component: Screens.ResetPasswordScreen },
+  ]
   const HomeStack = () =>
-    Stack({ component: Home, screens: HomeScreens, initialRouteName: "Home" });
+    Stack({ component: Home, screens: HomeScreens, initialRouteName: 'Home' })
   const MapStack = () =>
     Stack({
       component: Map,
       screens: MapScreens,
-      initialRouteName: "Locations",
-    });
+      initialRouteName: 'Locations',
+    })
   const Tabs = [
-    { name: "Home", component: HomeStack, icon: "calendar-outline" },
+    { name: 'Home', component: HomeStack, icon: 'calendar-outline' },
     //{ name: 'Check-Out', component: Screens.CheckOutScreen, icon: 'alarm-outline'},
-    { name: "Locations", component: MapStack, icon: "earth-outline" },
+    { name: 'Locations', component: MapStack, icon: 'earth-outline' },
     {
-      name: "Notifications",
+      name: 'Notifications',
       component: Screens.NotificationsScreen,
-      icon: "md-megaphone",
-      iconFocused: "md-megaphone-outline",
+      icon: 'md-megaphone',
+      iconFocused: 'md-megaphone-outline',
     },
-    { name: "Map", icon: "earth" },
-  ];
+    { name: 'Map', icon: 'earth' },
+  ]
 
   const track = async () => {
     if (activeDate) {
-      let now = await Location.getCurrentPositionAsync({});
-      let { latitude, longitude } = now.coords;
+      let now = await Location.getCurrentPositionAsync({})
+      let { latitude, longitude } = now.coords
       //fire.ref(`users/${auth.currentUser.uid}/dates/${activeDate.key}/userLocation`).update({ latitude, longitude })
-      setLocation({ ...location, latitude, longitude });
+      setLocation({ ...location, latitude, longitude })
     }
-  };
+  }
 
   useLayoutEffect(() => {
     async function authorizeLocation() {
       let { status: permissions } =
-        await Location.requestForegroundPermissionsAsync();
-      setLocation({ ...location, permissions });
-      if (permissions !== "granted") {
+        await Location.requestForegroundPermissionsAsync()
+      setLocation({ ...location, permissions })
+      if (permissions !== 'granted') {
         setLocation({
           ...location,
           permissions,
-          error: "Permission to access location was denied",
-        });
+          error: 'Permission to access location was denied',
+        })
       }
     }
     auth.onAuthStateChanged((user) => {
-      setLoggedIn(Object.keys(user || {}).length > 0);
-      authorizeLocation();
-    });
-  }, []);
+      setLoggedIn(Object.keys(user || {}).length > 0)
+      authorizeLocation()
+    })
+  }, [])
 
   useLayoutEffect(() => {
     if (isLoggedIn && auth.currentUser) {
-      console.log("VERIFICATIONS I");
-      let currentUser = auth.currentUser.uid;
-      Verifier.retrieveVerifications(currentUser, (x) => setVerifications(x));
-      setUser(currentUser);
-      console.log("logged in:", currentUser);
+      console.log('App.js VERIFICATIONS I')
+      let currentUser = auth.currentUser.uid
+      Verifier.retrieveVerifications(currentUser, (x) => setVerifications(x))
+      setUser(currentUser)
+      console.log('App.js logged in:', currentUser)
       // Notifier.setup({id: currentUser});
     } else {
-      console.log("logged in:", false);
+      console.log('App.js logged in:', false)
     }
-  }, [auth.currentUser]);
+  }, [auth.currentUser])
 
   //  useLayoutEffect(() => {
   //    console.log('VERIFICATIONS II')
@@ -156,30 +156,30 @@ export default function App() {
     if (dates) {
       let active = dates
         .filter((x) => -(60 * 3) < x.timeFromNow && x.timeFromNow < 60 * 24)
-        .sort((x, y) => x.timeFromNow - y.timeFromNow)[0];
+        .sort((x, y) => x.timeFromNow - y.timeFromNow)[0]
       if (active) {
-        let { key, name, dateImg: image, location, access_code } = active;
+        let { key, name, dateImg: image, location, access_code } = active
         active.image =
           image && image.length == 0
-            ? "https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg"
-            : image;
-        setActiveDate(active);
+            ? 'https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg'
+            : image
+        setActiveDate(active)
       }
     }
-  }, [dates]);
+  }, [dates])
 
   useEffect(() => {
     if (activeDate && activeDate.start) {
-      track();
+      track()
     }
-  }, [activeDate]);
+  }, [activeDate])
 
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
       {isLoggedIn === null ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <ActivityIndicator size="large" />
         </View>
@@ -193,19 +193,19 @@ export default function App() {
                   tabBarIcon: ({ focused, color, size }) => {
                     let { icon, iconFocused } = Tabs.find(
                       (x) => x.name == route.name
-                    );
+                    )
                     return (
                       <Ionicons
                         name={focused && iconFocused ? iconFocused : icon}
                         size={size}
                         color={color}
                       />
-                    );
+                    )
                   },
                 })}
                 tabBarOptions={{
-                  activeTintColor: "#198cff",
-                  inactiveTintColor: "gray",
+                  activeTintColor: '#198cff',
+                  inactiveTintColor: 'gray',
                   showLabel: true,
                 }}
               >
@@ -236,11 +236,11 @@ export default function App() {
         <Login.Navigator
           screenOptions={{
             headerBackTitleVisible: false,
-            headerTintColor: "#333",
-            headerTitleStyle: { color: "transparent" },
+            headerTintColor: '#333',
+            headerTitleStyle: { color: 'transparent' },
             headerStyle: {
-              shadowColor: "transparent",
-              backgroundColor: "#EEE",
+              shadowColor: 'transparent',
+              backgroundColor: '#EEE',
             },
           }}
         >
@@ -253,5 +253,5 @@ export default function App() {
         </Login.Navigator>
       )}
     </NavigationContainer>
-  );
+  )
 }
