@@ -8,19 +8,16 @@ import { signOutUser } from '../utils/firebase'
 
 function SettingsScreen({ route, navigation }) {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [phoneNum, setPhone] = useState('')
   const [time, setTime] = useState(0)
 
   useEffect(() => {
     AsyncStorage.getItem('@userCreds').then((data) => {
       const { email } = JSON.parse(data)
-      const { password } = JSON.parse(data)
       const { phoneNum } = JSON.parse(data)
       const { defaultTime } = JSON.parse(data)
 
       setEmail(email)
-      setPassword(password)
       setPhone(phoneNum)
 
       // if the user has set a default time, use it. If not default to 15 minutes
@@ -114,7 +111,7 @@ function SettingsScreen({ route, navigation }) {
               fontWeight: '400',
             }}
           >
-            {password}
+            ********
           </Text>
         </View>
         <View
