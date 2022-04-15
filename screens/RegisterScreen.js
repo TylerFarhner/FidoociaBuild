@@ -34,7 +34,7 @@ function RegisterScreen() {
    */
   const validateEmail = (emailString) => {
     var re = /\S+@\S+\.\S+/
-    console.log(emailString, re.test(emailString))
+    console.log('Register Screen :', emailString, re.test(emailString))
     return re.test(emailString)
   }
 
@@ -43,7 +43,7 @@ function RegisterScreen() {
    * does not fill out all registration fields properly
    */
   const validateFields = () => {
-    console.log('validateFields ran')
+    console.log('Register Screen : validateFields ran')
     setValidFN(true)
     setValidLN(true)
     setValidPhone(true)
@@ -80,13 +80,13 @@ function RegisterScreen() {
       '\nPhone Number: ' + phoneNum,
       '\nPassword Length: ' + password.length
     )
-    console.log('validateFields done')
+    console.log('Register Screen :validateFields done')
 
     return true
   }
 
   const register = () => {
-    console.log('Register Ran')
+    console.log('Register Screen :Register Ran')
     var isValid = validateFields()
     if (!isValid) {
       Alert.alert(
@@ -99,12 +99,11 @@ function RegisterScreen() {
         JSON.stringify({ email, password, name, lastName, phoneNum })
       ).then(() =>
         auth.createUserWithEmailAndPassword(email, password).catch((error) => {
-          var emailInUse =
-            'The email address is already in use by another account.'
+          var emailInUse = 'The email address is already in use.'
           if (error.message == emailInUse) {
             Alert.alert(
               'Email in Use',
-              'There is already an account created using this email address. Try signing in or using a different email address.'
+              'There is already an account using this email address. Try signing in or using a different email address.'
             )
           } else {
             Alert.alert('Registration Issue', error.message)
